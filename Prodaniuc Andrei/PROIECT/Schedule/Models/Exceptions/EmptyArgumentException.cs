@@ -8,7 +8,7 @@ namespace Models.Exceptions
 {
     public class EmptyArgumentException : ArgumentException
     {
-        public ArgumentCannotBeEmptyStringException(string parameterName)
+        public EmptyArgumentException(string parameterName)
             : base(string.Format("Argument {0} cannot be empty string.", parameterName), parameterName)
         {
 

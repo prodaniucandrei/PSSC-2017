@@ -30,7 +30,7 @@ namespace Tamarin.ViewModels
                 new HomePageMenuItem { Id = 1, Title = "Colegi", Icon = ImageSource.FromFile("colegi.png") },
                 new HomePageMenuItem { Id = 2, Title = "Logout", Icon = ImageSource.FromFile("logout.png") },
             });
-            Username = App.Current.Properties["email"] as string;
+            //Username = App.Current.Properties["email"] as string;
             UserImage = ImageSource.FromFile("user.png");
             NavigateCommand = new DelegateCommand<HomePageMenuItem>(OnNavigateCommandExecuted);
             NavigateDashboardCommand = new Command<string>(OnNavigateDashboard);

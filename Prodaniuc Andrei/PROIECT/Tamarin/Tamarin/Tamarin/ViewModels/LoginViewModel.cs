@@ -50,12 +50,18 @@ namespace Tamarin.ViewModels
         }
 
         public DelegateCommand LoginCommand { get; set; }
+        public DelegateCommand RegisterCommand { get; set; }
 
         public LoginViewModel(INavigationService navigationService): base(navigationService)
         {
-            LoginCommand = LoginCommand = new DelegateCommand(OnLoginCommandExecuted);
-
+            LoginCommand = new DelegateCommand(OnLoginCommandExecuted);
+            RegisterCommand = new DelegateCommand(OnRegisterButtonPressed);
             ElementsOpacity = 1;
+        }
+
+        private async void OnRegisterButtonPressed()
+        {
+            await _navigationService.NavigateAsync("Register");
         }
 
         public async void OnLoginCommandExecuted()
@@ -67,30 +73,30 @@ namespace Tamarin.ViewModels
             model.Username = Username;
             model.Password = Password;
 
-            var response = await AuthService.Login(model);
+            //var response = await AuthService.Login(model);
 
-            if(response.IsSuccessStatusCode)
-            {
+            //if(response.IsSuccessStatusCode)
+            //{
                 IsBusy = false;
                 ElementsOpacity = 1;
 
-                var content = await response.Content.ReadAsStringAsync();
-                var message = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
-                Application.Current.Properties["id"] = message["id"];
-                Application.Current.Properties["email"] = message["email"];
-                Application.Current.Properties["roles"] = message["roles"];
-                Application.Current.Properties["token"] = message["auth_token"];
-                Application.Current.Properties["isLoggedIn"] = "true";
+                //var content = await response.Content.ReadAsStringAsync();
+                //var message = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
+                //Application.Current.Properties["id"] = message["id"];
+                //Application.Current.Properties["email"] = message["email"];
+                //Application.Current.Properties["roles"] = message["roles"];
+                //Application.Current.Properties["token"] = message["auth_token"];
+                //Application.Current.Properties["isLoggedIn"] = "true";
 
                 await _navigationService.NavigateAsync("/Home/Navigation/Dashboard?message=Welcome");
-            }
-            else
-            {
-                IsBusy = false;
-                ElementsOpacity = 1;
+            //}
+            //else
+            //{
+            //    IsBusy = false;
+            //    ElementsOpacity = 1;
 
-                //await DisplayAlert("Error", "Username or password is not corect", "OK");
-            }
+            //    //await DisplayAlert("Error", "Username or password is not corect", "OK");
+            //}
         }
 
         public override async void OnNavigatingTo(NavigationParameters parameters)
