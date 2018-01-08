@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="Tamarin.Views.SubjectDetalii"
+             Title="Detalii">
+    <StackLayout>
+        <Label Text="{Binding Nume}"></Label>
+        <Label Text="{Binding Locatie}"></Label>
+        <Label Text="{Binding Confirmations}"></Label>
+        <Label Text="{Binding Facultate}"></Label>
+        <Label Text="{Binding Serie}"></Label>
+        <Label Text="{Binding Date}"></Label>
+        <Label Text="{Binding StartTime}"></Label>
+        <Label Text="{Binding Tip}"></Label>
+    </StackLayout>
+</ContentPage>
