@@ -43,6 +43,31 @@ namespace Models.DataAccessLayer
                 }
             }
         }
+
+        internal List<Eveniment> IncarcaListaEvenimente()
+        {
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Schedule.LoadEvents", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    conn.Open();
+                    var result = cmd.ExecuteReader();
+                    List<Eveniment> evenimente = new List<Eveniment>();
+                    while (result.Read())
+                    {
+                        var e = JsonConvert.DeserializeObject<Eveniment>(result["Data"].ToString());
+                        evenimente.Add(e);
+                    }
+                   
+                    conn.Close();
+                    return evenimente;
+
+                }
+            }
+        }
+
         public void SalvareEvenimente(ReadOnlyCollection<Eveniment> evenimenteNoi)
         {
             using (SqlConnection conn = new SqlConnection(connString))
@@ -51,7 +76,29 @@ namespace Models.DataAccessLayer
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    var data = new SqlParameter("Data", JsonConvert.SerializeObject(evenimenteNoi.FirstOrDefault()));
+                    var data = new SqlParameter("Data", JsonConvert.SerializeObject(evenimenteNoi.LastOrDefault()));
+                    cmd.Parameters.Add(data);
+
+                    conn.Open();
+                    var result = cmd.ExecuteNonQuery();
+
+                    conn.Close();
+                }
+            }
+        }
+
+        internal void SalvareStudent(StudentDto studentDto)
+        {
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Schedule.AddStudent", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    var id = new SqlParameter("Id", studentDto.Id);
+                    cmd.Parameters.Add(id);
+                    
+                    var data = new SqlParameter("Data", JsonConvert.SerializeObject(studentDto));
                     cmd.Parameters.Add(data);
 
                     conn.Open();

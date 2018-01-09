@@ -19,14 +19,31 @@ namespace Models.Repositories
             return new Models.Materie();
         }
 
+        public void SalvareEvenimente(OrarDto orarDto)
+        {
+            
+        }
+
+        public Student GasesteStudent(Guid idStudent)
+        {
+            var evenimenteStudent = IncarcaListaDeEvenimente().Where(e => e.IdRadacina == idStudent);
+            return new Student(evenimenteStudent);
+        }
+
         private List<Eveniment> IncarcaListaDeEvenimente()
+        {
+            var dal = new Dal();
+            return dal.IncarcaListaEvenimente();
+        }
+
+        internal void SalvareEvenimente(Materie materie)
         {
             throw new NotImplementedException();
         }
 
-        internal void SalvareEvenimente(object materie)
+        public void SalvareEvenimente(Student student)
         {
-            throw new NotImplementedException();
+            SalvareEvenimente(student.EvenimenteNoi);
         }
 
         internal void SalvareEvenimente(Utilizator utilizator)
@@ -52,6 +69,43 @@ namespace Models.Repositories
         {
             var dal = new Dal();
             dal.SalvareEvenimente(evenimenteNoi);
+        }
+
+        public void AdaugareStudent(StudentDto studentDto)
+        {
+            var student = new Student(studentDto);
+            SalvareEvenimente(student);
+            SalvareStudent(studentDto);
+        }
+
+        private void SalvareStudent(StudentDto studentDto)
+        {
+            var dal = new Dal();
+            dal.SalvareStudent(studentDto);
+        }
+
+        public OrarDto CreareOrar(OrarDto orarDto)
+        {
+            OrarDto orar;
+            if ((orar=OrarNotExists(orarDto))!=null)
+            {
+                orar = AdaugaOrar(orarDto);
+            }
+            else
+            {
+                return orar;
+            }
+            return orar;
+        }
+
+        private OrarDto AdaugaOrar(OrarDto orarDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        private OrarDto OrarNotExists(OrarDto orarDto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

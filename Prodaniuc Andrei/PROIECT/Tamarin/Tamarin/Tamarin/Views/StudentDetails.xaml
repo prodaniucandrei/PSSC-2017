@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="Tamarin.Views.StudentDetails"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <Grid Padding="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Text="Email"></Label>
+            <Entry Grid.Row="0" Grid.Column="1" IsEnabled="False" Text="{Binding Email}"></Entry>
+
+            <Label Grid.Row="1" Grid.Column="0" Text="Nume"></Label>
+            <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Nume}"></Entry>
+
+            <Label Grid.Row="2" Grid.Column="0" Text="Facultate"></Label>
+            <Entry Grid.Row="2" Grid.Column="1" Text="{Binding Facultate}"></Entry>
+
+            <Label Grid.Row="3" Grid.Column="0" Text="An"></Label>
+            <Entry Grid.Row="3" Grid.Column="1" Text="{Binding An}"></Entry>
+
+            <Label Grid.Row="4" Grid.Column="0" Text="Grupa"></Label>
+            <Entry Grid.Row="4" Grid.Column="1" Text="{Binding Grupa}"></Entry>
+
+            <Label Grid.Row="5" Grid.Column="0" Text="Subgrupa"></Label>
+            <Entry Grid.Row="5" Grid.Column="1" Text="{Binding Subgrupa}"></Entry>
+
+            <Label Grid.Row="6" Grid.Column="0" Text="Date contact"></Label>
+            <Entry Grid.Row="6" Grid.Column="1" Text="{Binding DateContact}"></Entry>
+
+            <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" 
+                    Command="{Binding RegisterCommand}" Text="Submit data" BackgroundColor="{StaticResource Primary}" 
+                    TextColor="White"></Button>
+
+
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>

@@ -9,7 +9,7 @@ namespace Models
 
         public Password(PlainText value)
         {
-            Contract.Requires(value != null, "password");
+            //Contract.Requires(value != null, "password");
             Value = new PlainText(EncryptPassword(value));
         }
 

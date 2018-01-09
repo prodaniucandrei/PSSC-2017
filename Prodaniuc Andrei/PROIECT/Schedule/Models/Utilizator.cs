@@ -33,7 +33,7 @@ namespace Models
         {
             _evenimenteNoi.Add(e);
 
-            MagistralaEvenimente.Instanta.Value.Trimite(e);
+            //MagistralaEvenimente.Instanta.Value.Trimite(e);
         }
 
         private void Aplica(EvenimentGeneric<UtilizatorDto> ev)
@@ -42,6 +42,18 @@ namespace Models
             Email = new Email(new PlainText(ev.Detalii.Email));
             Password = new Password(new PlainText(ev.Detalii.Password));
             IsSetUp = ev.Detalii.IsSetUp;
+        }
+
+        public void SetareUtilizator(SetareUtilizatorDto setDto)
+        {
+            var ev = new EvenimentGeneric<SetareUtilizatorDto>(setDto.IdUtilizator, TipEveniment.SetareUtilizator, setDto);
+            Aplica(ev);
+            PublicaEveniment(ev);
+        }
+
+        private void Aplica(EvenimentGeneric<SetareUtilizatorDto> ev)
+        {
+           IsSetUp = true;
         }
     }
 }

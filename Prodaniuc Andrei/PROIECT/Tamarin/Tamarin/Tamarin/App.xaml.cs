@@ -49,6 +49,7 @@ namespace Tamarin
             Container.RegisterTypeForNavigation<SubjectDetalii>();
             Container.RegisterTypeForNavigation<AddNewSubject>();
             Container.RegisterTypeForNavigation<Register>();
+            Container.RegisterTypeForNavigation<StudentDetails>();
         }
     }
 }

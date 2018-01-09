@@ -65,7 +65,9 @@
     <Compile Include="ViewModels\OrarConfirmateViewModel.cs" />
     <Compile Include="ViewModels\OrarNeconfirmateViewModel.cs" />
     <Compile Include="ViewModels\OrarViewModel.cs" />
+    <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
+    <Compile Include="ViewModels\StudentDetailsViewModel.cs" />
     <Compile Include="ViewModels\SubjectDetaliiViewModel.cs" />
     <Compile Include="ViewModels\SubjectNoticeViewModel.cs" />
     <Compile Include="ViewModels\SubjectPrezentaViewModel.cs" />
@@ -93,8 +95,14 @@
     <Compile Include="Views\OrarNeconfirmate.xaml.cs">
       <DependentUpon>OrarNeconfirmate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Register.xaml.cs">
+      <DependentUpon>Register.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Schedule.xaml.cs">
       <DependentUpon>Schedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StudentDetails.xaml.cs">
+      <DependentUpon>StudentDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Subject.xaml.cs">
       <DependentUpon>Subject.xaml</DependentUpon>
@@ -246,6 +254,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\AddNewSubject.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Register.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\StudentDetails.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

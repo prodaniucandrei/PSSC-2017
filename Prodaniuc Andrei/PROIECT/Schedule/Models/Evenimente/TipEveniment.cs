@@ -11,7 +11,9 @@ namespace Models.Evenimente
         AdaugareMaterie,
         AprobareMaterie,
         StartActivitate,
-        AdaugareUtilizator
-
+        AdaugareUtilizator,
+        AdaugareStudent,
+        SetareUtilizator,
+        AdaugareOrar
     }
 }

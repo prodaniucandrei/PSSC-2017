@@ -21,9 +21,20 @@ namespace Tamarin.Services
             client.MaxResponseContentBufferSize = 256000;
         }
 
+        public static async Task<HttpResponseMessage> Register(LoginModel model)
+        {
+            var route = "Account/UserRegister";
+            var json = JsonConvert.SerializeObject(model);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync(route, content);
+
+            return response;
+        }
+
         public static async Task<HttpResponseMessage> Login(LoginModel model)
         {
-            var route = "account/login";
+            var route = "Account/UserLogin";
             var json = JsonConvert.SerializeObject(model);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 

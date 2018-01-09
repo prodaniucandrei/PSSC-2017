@@ -16,6 +16,9 @@ using Microsoft.Owin.Security.OAuth;
 using ScheduleApi.Models;
 using ScheduleApi.Providers;
 using ScheduleApi.Results;
+using Models.DTO_s;
+using Models.Repositories;
+using Models;
 
 namespace ScheduleApi.Controllers
 {
@@ -50,6 +53,51 @@ namespace ScheduleApi.Controllers
         }
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("UserRegister")]
+        public async Task<IHttpActionResult> UserRegister(UserModel user)
+        {
+            var utilizatorDto = new UtilizatorDto()
+            {
+                Id = Guid.NewGuid(),
+                Email = user.Email,
+                Password = user.Password,
+                IsSetUp = false
+            };
+
+            var writeRepository = new WriteRepository();
+            writeRepository.AdaugareUtilizator(utilizatorDto);
+            return Ok("User registered");
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("UserLogin")]
+        public async Task<IHttpActionResult> UserLogin(UserModel user)
+        {
+            try
+            {
+                var utilizatorDto = new UtilizatorDto()
+                {
+                    Id = Guid.Empty,
+                    Email = user.Email,
+                    Password = user.Password,
+                    IsSetUp = false
+                };
+
+                var readRepository = new ReadRepository();
+                utilizatorDto.Password = new Password(new PlainText(utilizatorDto.Password)).Value.Text;
+                var guid = readRepository.LogareUtilizator(utilizatorDto);
+
+                return Ok(guid);
+            }
+            catch (Exception x)
+            {
+                return Ok(x.Message);
+            }
+        }
 
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
@@ -125,7 +173,7 @@ namespace ScheduleApi.Controllers
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -258,9 +306,9 @@ namespace ScheduleApi.Controllers
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    OAuthDefaults.AuthenticationType);
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                   OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
@@ -368,7 +416,7 @@ namespace ScheduleApi.Controllers
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result); 
+                return GetErrorResult(result);
             }
             return Ok();
         }

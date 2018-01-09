@@ -46,19 +46,24 @@
   <ItemGroup>
     <Compile Include="Comenzi\Comanda.cs" />
     <Compile Include="Comenzi\ComandaAdaugareMaterie.cs" />
+    <Compile Include="Comenzi\ComandaAdaugareStudent.cs" />
     <Compile Include="Comenzi\ComandaAdaugareUtilizator.cs" />
     <Compile Include="Comenzi\ComandaAprobareMaterie.cs" />
+    <Compile Include="Comenzi\ComandaSetareStudent.cs" />
     <Compile Include="Comenzi\ComandaStartActivitate.cs" />
     <Compile Include="Comenzi\MagistralaComenzi.cs" />
     <Compile Include="Comenzi\MagistralaComenziEx.cs" />
     <Compile Include="Comenzi\MaterieDto.cs" />
     <Compile Include="Comenzi\ProcesatorAdaugareMaterie.cs" />
+    <Compile Include="Comenzi\ProcesatorAdaugareStudent.cs" />
     <Compile Include="Comenzi\ProcesatorAdaugareUtilizator.cs" />
     <Compile Include="Comenzi\ProcesatorAprobareMaterie.cs" />
     <Compile Include="Comenzi\ProcesatorComanda.cs" />
     <Compile Include="Comenzi\ProcesatorComandaGeneric.cs" />
+    <Compile Include="Comenzi\ProcesatorSetareStudent.cs" />
     <Compile Include="DataAccessLayer\Dal.cs" />
     <Compile Include="Desfasurare.cs" />
+    <Compile Include="DTO%27s\StudentDto.cs" />
     <Compile Include="DTO%27s\UtilizatorDto.cs" />
     <Compile Include="DurataActivitate.cs" />
     <Compile Include="Email.cs" />
