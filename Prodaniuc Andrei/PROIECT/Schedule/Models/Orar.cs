@@ -20,8 +20,10 @@ namespace Models
 
         public ReadOnlyCollection<Eveniment> EvenimenteNoi { get { return _evenimenteNoi.AsReadOnly(); } }
 
-        public Orar(OrarDto orarDto)
+        private MagistralaEvenimente _magistralaEvenimente;
+        public Orar(OrarDto orarDto, MagistralaEvenimente _magistrala = null)
         {
+            _magistralaEvenimente = _magistrala;
             var ev = new EvenimentGeneric<OrarDto>(orarDto.Id, TipEveniment.AdaugareOrar, orarDto);
             Aplica(ev);
             PublicaEveniment(ev);

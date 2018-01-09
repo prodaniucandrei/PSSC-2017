@@ -78,6 +78,7 @@
     <Compile Include="Evenimente\ProcesatorEveniment.cs" />
     <Compile Include="Evenimente\TipEveniment.cs" />
     <Compile Include="Exceptions\EmptyArgumentException.cs" />
+    <Compile Include="Exceptions\EmptyGuidException.cs" />
     <Compile Include="Materie.cs" />
     <Compile Include="MaterieAprobata.cs" />
     <Compile Include="Orar.cs" />

@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Tamarin.Models
 {
-    public class DashboardModel
+    public class UserLogged
     {
         public Guid Id { get; set; }
-        public string Sectie{ get; set; }
-        public List<Materie> Materii { get; set; }
+        public bool IsSetUp { get; set; }
     }
 }

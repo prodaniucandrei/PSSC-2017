@@ -1,5 +1,6 @@
 ﻿using Models.DTO_s;
 using Models.Evenimente;
+using Models.Exceptions;
 using Models.Repositories;
 using System;
 using System.Collections.Generic;
@@ -30,11 +31,12 @@ namespace Models
 
         private readonly List<Eveniment> _evenimenteNoi = new List<Eveniment>();
         private IEnumerable<Eveniment> evenimenteStudent;
-
+        private MagistralaEvenimente _magistralaEveniment;
         public ReadOnlyCollection<Eveniment> EvenimenteNoi { get { return _evenimenteNoi.AsReadOnly(); } }
 
-        public Student(StudentDto studentDto)
+        public Student(StudentDto studentDto, MagistralaEvenimente _magistrala = null)
         {
+            _magistralaEveniment = _magistrala;
             var ev = new EvenimentGeneric<StudentDto>(studentDto.Id, TipEveniment.AdaugareStudent, studentDto);
             Aplica(ev);
             PublicaEveniment(ev);
@@ -66,6 +68,8 @@ namespace Models
 
         private void Aplica(EvenimentGeneric<StudentDto> ev)
         {
+            if (ev.Detalii.Id == Guid.Empty)
+                throw new EmptyGuidException();
             Id = ev.Detalii.Id;
             Email = new Email(new PlainText(ev.Detalii.Email));
             Nume = new PlainText(ev.Detalii.Nume);

@@ -1,5 +1,6 @@
 ﻿using Models.DTO_s;
 using Models.Evenimente;
+using Models.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,9 +20,10 @@ namespace Models
         private readonly List<Eveniment> _evenimenteNoi = new List<Eveniment>();
 
         public ReadOnlyCollection<Eveniment> EvenimenteNoi { get { return _evenimenteNoi.AsReadOnly(); } }
-
-        public Utilizator(UtilizatorDto utilizatorDto)
+        private MagistralaEvenimente _magistralaEveniment;
+        public Utilizator(UtilizatorDto utilizatorDto, MagistralaEvenimente _magistrala=null)
         {
+            _magistralaEveniment = _magistrala;
             var ev = new EvenimentGeneric<UtilizatorDto>(utilizatorDto.Id, TipEveniment.AdaugareUtilizator, utilizatorDto);
             Aplica(ev);
             PublicaEveniment(ev);
@@ -38,6 +40,8 @@ namespace Models
 
         private void Aplica(EvenimentGeneric<UtilizatorDto> ev)
         {
+            if (ev.Detalii.Id == Guid.Empty)
+                throw new EmptyGuidException();
             Id = ev.Detalii.Id;
             Email = new Email(new PlainText(ev.Detalii.Email));
             Password = new Password(new PlainText(ev.Detalii.Password));

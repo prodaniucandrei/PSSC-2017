@@ -21,8 +21,10 @@ namespace Models
 
         public ReadOnlyCollection<Eveniment> EvenimenteNoi { get { return _evenimenteNoi.AsReadOnly(); } }
 
-        public Materie(MaterieDto materieDto)
+        private MagistralaEvenimente _magistralaEvenimente;
+        public Materie(MaterieDto materieDto, MagistralaEvenimente _magistrala = null)
         {
+            _magistralaEvenimente = _magistrala;
             var ev = new EvenimentGeneric<MaterieDto>(materieDto.Id, TipEveniment.AdaugareMaterie, materieDto);
             Aplica(ev);
             PublicaEveniment(ev);

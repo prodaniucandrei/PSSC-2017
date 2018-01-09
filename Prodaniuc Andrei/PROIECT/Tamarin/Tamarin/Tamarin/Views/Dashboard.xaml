@@ -28,10 +28,10 @@
                                            LineBreakMode="NoWrap"
                                            FontSize="Default"
                                            FontAttributes="Bold"/>
-                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Locatie}"
+                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Tip}"
                                            LineBreakMode="NoWrap"
                                            FontSize="Small"/>
-                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding StartTime}"
+                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding Aprobata}"
                                            LineBreakMode="NoWrap"
                                            FontSize="Small"/>
                             </Grid>
@@ -58,10 +58,10 @@
                                            LineBreakMode="NoWrap"
                                            FontSize="Default"
                                            FontAttributes="Bold"/>
-                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Locatie}"
+                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Tip}"
                                            LineBreakMode="NoWrap"
                                            FontSize="Small"/>
-                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding StartTime}"
+                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding Aprobata}"
                                            LineBreakMode="NoWrap"
                                            FontSize="Small"/>
                             </Grid>
@@ -89,14 +89,14 @@
             <ActivityIndicator Color="{StaticResource Primary}" IsRunning="{Binding IsBusy}" Grid.Row="0" Grid.RowSpan="8" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center"/>
 
             <Image Grid.Row="0" Source="user.png" HeightRequest="64" WidthRequest="64" Margin="16"></Image>
-            <Label Grid.Row="1" TextColor="{StaticResource Dark}" FontSize="Medium" FontAttributes="Bold" Text="{Binding DashboardModel.Student.Nume}" HorizontalTextAlignment="Center"></Label>
-            <Label Grid.Row="2" TextColor="{StaticResource Dark}" FontSize="Small" Text="{Binding DashboardModel.Student.Facultate}" HorizontalTextAlignment="Center"></Label>
+            <Label Grid.Row="1" TextColor="{StaticResource Dark}" FontSize="Medium" FontAttributes="Bold" Text="{Binding DashboardModel.Sectie}" HorizontalTextAlignment="Center"></Label>
+            <Label Grid.Row="2" TextColor="{StaticResource Dark}" FontSize="Small" Text="{Binding DashboardModel.Id}" HorizontalTextAlignment="Center"></Label>
 
             <StackLayout Orientation="Horizontal" Grid.Row="4">
                 <Label  Text="Orar" TextColor="{StaticResource Dark}" FontSize="Medium" FontAttributes="Bold"></Label>
                 <Label  Text="{Binding Zi}" TextColor="{StaticResource Dark}" FontSize="Medium" FontAttributes="Bold"></Label>
             </StackLayout>
-            <ListView  Grid.Row="5" ItemsSource="{Binding DashboardModel.Subjects}"  
+            <ListView  Grid.Row="5" ItemsSource="{Binding DashboardModel.Materii}"  
                   HasUnevenRows="true"
                   CachingStrategy="RecycleElement"
                   ItemTemplate="{StaticResource subjectDataTemplateSelector}">

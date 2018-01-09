@@ -72,28 +72,34 @@ namespace Tamarin.ViewModels
             var model = new LoginModel();
             model.Email = Username;
             model.Password = Password;
-
-            var response = await AuthService.Login(model);
-
-            if(response.IsSuccessStatusCode)
+            try
             {
-                IsBusy = false;
-                ElementsOpacity = 1;
+                var response = await AuthService.Login(model);
 
-                var content = await response.Content.ReadAsStringAsync();
-                var message = JsonConvert.DeserializeObject<string>(content);
-                Application.Current.Properties["id"] = message;
-                Application.Current.Properties["email"] = Username;
-                Application.Current.Properties["isLoggedIn"] = "true";
+                if (response.IsSuccessStatusCode)
+                {
+                    IsBusy = false;
+                    ElementsOpacity = 1;
 
-                await _navigationService.NavigateAsync("/Home/Navigation/Dashboard?message=Welcome");
+                    var content = await response.Content.ReadAsStringAsync();
+                    var message = JsonConvert.DeserializeObject<UserLogged>(content);
+                    Application.Current.Properties["id"] = message.Id;
+                    Application.Current.Properties["email"] = Username;
+                    Application.Current.Properties["isLoggedIn"] = message.IsSetUp;
+
+                    await _navigationService.NavigateAsync("/Home/Navigation/Dashboard?message=Welcome");
+                }
+                else
+                {
+                    IsBusy = false;
+                    ElementsOpacity = 1;
+
+                    //await DisplayAlert("Error", "Username or password is not corect", "OK");
+                }
             }
-            else
+            catch (Exception x)
             {
-                IsBusy = false;
-                ElementsOpacity = 1;
 
-                //await DisplayAlert("Error", "Username or password is not corect", "OK");
             }
         }
 

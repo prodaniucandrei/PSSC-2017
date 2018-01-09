@@ -22,7 +22,7 @@ namespace Tamarin.ViewModels
             NavigateCommand = new DelegateCommand(OnNavigateExecuted);
             ItemClickedCommand = new DelegateCommand<SubjectModel>(OnItemClickedCommand);
 
-            //GetDashboard();
+            GetDashboard();
         }
         public string Zi
         {

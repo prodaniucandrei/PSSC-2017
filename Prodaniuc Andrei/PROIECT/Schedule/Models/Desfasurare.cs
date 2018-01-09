@@ -6,5 +6,11 @@
         public PlainText Semestru { get; set; }
         public OraStart OraStart { get; set; }
         public DurataActivitate Durata { get; set; }
+
+        
+        public Desfasurare()
+        {
+
+        }
     }
 }

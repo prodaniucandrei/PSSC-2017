@@ -13,7 +13,7 @@ namespace Models.Evenimente
         private readonly Dictionary<TipEveniment, List<ProcesatorEveniment>> registru = new Dictionary<TipEveniment, List<ProcesatorEveniment>>();
         private bool inregistrareDeschisa = true;
 
-        private MagistralaEvenimente()
+        public MagistralaEvenimente()
         {
 
         }

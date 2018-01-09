@@ -17,12 +17,10 @@ namespace Tamarin.Services
             client.BaseAddress = ConstantService.GetUrl();
             client.MaxResponseContentBufferSize = 256000;
 
-            var studentId = App.Current.Properties["id"] as string;
+            var route = "Values/GetSchedule?sectia=IS";
 
-            var route = "dashboard/getdashboard" + "/" + studentId;
-
-            var token = App.Current.Properties["token"] as string;
-            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            //var token = App.Current.Properties["token"] as string;
+            //client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
             var response = await client.GetAsync(route);
 

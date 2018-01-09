@@ -20,7 +20,7 @@ namespace ScheduleConsoleTest
             MagistralaEvenimente.Instanta.Value.InchideInregistrarea();
 
             var writeRepository = new WriteRepository();
-            
+
             //--------
 
             var utilizatorDto = new UtilizatorDto()
@@ -45,13 +45,13 @@ namespace ScheduleConsoleTest
 
                 Id = Guid.Parse("0E38FAA1-7C1D-4DCE-A4A7-89A6AD960154"),
                 Email = utilizatorDto.Email,
-                Facultate="AC",
-                Sectie="IS",
-                An="4",
-                Grupa="3",
-                Subgrupa="1",
-                Nume="Prodaniuc Andrei",
-                DateContact="AR15PRD"
+                Facultate = "AC",
+                Sectie = "IS",
+                An = "4",
+                Grupa = "3",
+                Subgrupa = "1",
+                Nume = "Prodaniuc Andrei",
+                DateContact = "AR15PRD"
             };
 
             //writeRepository.AdaugareStudent(studentDto);
@@ -67,17 +67,26 @@ namespace ScheduleConsoleTest
             };
 
             var orar = writeRepository.CreareOrar(orarDto);
-            Orar newOrar = new Orar(orarDto);
+            Orar newOrar = new Orar(orar);
+
+            var desfasurare = new Desfasurare()
+            {
+                Zi = new PlainText("Marti"),
+                Semestru = new PlainText("1"),
+                OraStart = new OraStart(),
+                Durata = new DurataActivitate()
+            };
 
             var materieDto = new MaterieDto()
             {
                 Id = Guid.NewGuid(),
-                Nume = "PSSC",
+                Nume = "DATC",
                 Tip = TipActivitate.Curs,
                 Aprobata = false,
-                Desfasurare = new Desfasurare()
+                Desfasurare = desfasurare
             };
             newOrar.AdaugareMaterie(materieDto);
+            var or = readRepository.IncarcaOrar(studentDto.Sectie);
 
             Console.ReadKey();
         }
