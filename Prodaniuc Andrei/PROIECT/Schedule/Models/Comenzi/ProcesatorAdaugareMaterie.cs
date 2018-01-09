@@ -12,9 +12,9 @@ namespace Models.Comenzi
         public override void Proceseaza(ComandaAdaugareMaterie comanda)
         {
             var repo = new WriteRepository();
-            var materie = repo.GasesteMaterie(comanda.IdMaterie);
-            materie.Adaugare();
-            repo.SalvareEvenimente(materie);
+            var orar = repo.GasesteOrar(comanda.IdOrar);
+            orar.AdaugareMaterie(comanda.MaterieDto);
+            repo.SalvareEvenimente(orar);
         }
     }
 }

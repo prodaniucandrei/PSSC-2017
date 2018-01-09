@@ -17,6 +17,8 @@ namespace Models
         public Desfasurare Desfasurare { get; set; }
         public MaterieAprobata Aprobata { get; set; }
         private readonly List<Eveniment> _evenimenteNoi = new List<Eveniment>();
+        private IEnumerable<Eveniment> evenimenteMaterie;
+
         public ReadOnlyCollection<Eveniment> EvenimenteNoi { get { return _evenimenteNoi.AsReadOnly(); } }
 
         public Materie(MaterieDto materieDto)
@@ -24,6 +26,11 @@ namespace Models
             var ev = new EvenimentGeneric<MaterieDto>(materieDto.Id, TipEveniment.AdaugareMaterie, materieDto);
             Aplica(ev);
             PublicaEveniment(ev);
+        }
+
+        public Materie(IEnumerable<Eveniment> evenimenteMaterie)
+        {
+            this.evenimenteMaterie = evenimenteMaterie;
         }
 
         private void PublicaEveniment(EvenimentGeneric<MaterieDto> ev)

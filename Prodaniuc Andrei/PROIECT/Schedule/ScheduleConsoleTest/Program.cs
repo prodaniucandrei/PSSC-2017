@@ -59,6 +59,25 @@ namespace ScheduleConsoleTest
             //----------------
             var student = writeRepository.GasesteStudent(Guid.Parse("0E38FAA1-7C1D-4DCE-A4A7-89A6AD960154"));
 
+            var orarDto = new OrarDto()
+            {
+                Id = Guid.Parse("8CD4B634-3D8B-45C4-8A05-96451210B9F5"),
+                Sectie = "IS",
+                Materii = new List<MaterieDto>()
+            };
+
+            var orar = writeRepository.CreareOrar(orarDto);
+            Orar newOrar = new Orar(orarDto);
+
+            var materieDto = new MaterieDto()
+            {
+                Id = Guid.NewGuid(),
+                Nume = "PSSC",
+                Tip = TipActivitate.Curs,
+                Aprobata = false,
+                Desfasurare = new Desfasurare()
+            };
+            newOrar.AdaugareMaterie(materieDto);
 
             Console.ReadKey();
         }

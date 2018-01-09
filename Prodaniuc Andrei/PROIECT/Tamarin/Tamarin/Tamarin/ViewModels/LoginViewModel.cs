@@ -82,11 +82,9 @@ namespace Tamarin.ViewModels
 
                 var content = await response.Content.ReadAsStringAsync();
                 var message = JsonConvert.DeserializeObject<string>(content);
-                //Application.Current.Properties["id"] = message["id"];
-                //Application.Current.Properties["email"] = message["email"];
-                //Application.Current.Properties["roles"] = message["roles"];
-                //Application.Current.Properties["token"] = message["auth_token"];
-                //Application.Current.Properties["isLoggedIn"] = "true";
+                Application.Current.Properties["id"] = message;
+                Application.Current.Properties["email"] = Username;
+                Application.Current.Properties["isLoggedIn"] = "true";
 
                 await _navigationService.NavigateAsync("/Home/Navigation/Dashboard?message=Welcome");
             }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.Comenzi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,6 @@ namespace Models.DTO_s
     {
         public Guid Id { get; set; }
         public string Sectie { get; set; }
-        public List<Materie> Materii { get; set; }
+        public List<MaterieDto> Materii { get; set; }
     }
 }

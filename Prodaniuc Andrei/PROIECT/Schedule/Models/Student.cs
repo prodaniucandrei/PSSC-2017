@@ -27,7 +27,6 @@ namespace Models
 
         public PlainText Subgrupa { get; set; }
         public PlainText DateContact { get; set; }
-        public Orar Orar { get; set; }
 
         private readonly List<Eveniment> _evenimenteNoi = new List<Eveniment>();
         private IEnumerable<Eveniment> evenimenteStudent;
@@ -76,7 +75,6 @@ namespace Models
             Grupa = new PlainText(ev.Detalii.Grupa);
             Subgrupa = new PlainText(ev.Detalii.Subgrupa);
             DateContact = new PlainText(ev.Detalii.DateContact);
-            Orar = new Orar();
         }
     }
 }

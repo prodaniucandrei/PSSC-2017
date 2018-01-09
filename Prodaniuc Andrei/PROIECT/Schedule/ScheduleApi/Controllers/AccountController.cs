@@ -89,9 +89,9 @@ namespace ScheduleApi.Controllers
 
                 var readRepository = new ReadRepository();
                 utilizatorDto.Password = new Password(new PlainText(utilizatorDto.Password)).Value.Text;
-                var guid = readRepository.LogareUtilizator(utilizatorDto);
+                var userLogged = readRepository.LogareUtilizator(utilizatorDto);
 
-                return Ok(guid);
+                return Ok(userLogged);
             }
             catch (Exception x)
             {

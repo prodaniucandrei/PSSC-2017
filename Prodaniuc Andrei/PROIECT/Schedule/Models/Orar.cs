@@ -14,8 +14,10 @@ namespace Models
     {
         public Guid Id { get; set; }
         public PlainText Sectie { get; set; }
-        public List<Materie> Materii { get; set; }
+        public List<MaterieDto> Materii { get; set; }
         private readonly List<Eveniment> _evenimenteNoi = new List<Eveniment>();
+        private List<Eveniment> listaEvenimente;
+
         public ReadOnlyCollection<Eveniment> EvenimenteNoi { get { return _evenimenteNoi.AsReadOnly(); } }
 
         public Orar(OrarDto orarDto)
@@ -25,9 +27,10 @@ namespace Models
             PublicaEveniment(ev);
         }
 
-        private void PublicaEveniment(EvenimentGeneric<OrarDto> ev)
+        private void PublicaEveniment(Eveniment ev)
         {
             _evenimenteNoi.Add(ev);
+            MagistralaEvenimente.Instanta.Value.Trimite(ev);
         }
 
         public Orar()
@@ -35,11 +38,41 @@ namespace Models
 
         }
 
+        public Orar(List<Eveniment> listaEvenimente)
+        {
+
+            foreach (var e in listaEvenimente)
+            {
+                RedaEveniment(e);
+            }
+        }
+
+        private void RedaEveniment(Eveniment e)
+        {
+            switch (e.Tip)
+            {
+                case TipEveniment.AdaugareOrar:
+                    Aplica(e.ToGeneric<OrarDto>());
+                    break;
+                case TipEveniment.AdaugareMaterie:
+                    Aplica(e.ToGeneric<MaterieDto>());
+                        break;
+            }
+        }
+
         public void AdaugareMaterie(MaterieDto materieDto)
         {
             var materie = new Materie(materieDto);
-            Materii.Add(materie);
+            var e = new EvenimentGeneric<MaterieDto>(this.Id, TipEveniment.AdaugareMaterie, materieDto);
+            Aplica(e);
+            PublicaEveniment(e);
         }
+
+        private void Aplica(EvenimentGeneric<MaterieDto> e)
+        {
+            Materii.Add(e.Detalii);
+        }
+
         private void Aplica(EvenimentGeneric<OrarDto> ev)
         {
             Id = ev.Detalii.Id;

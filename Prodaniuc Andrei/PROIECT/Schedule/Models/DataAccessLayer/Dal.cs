@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Models.DTO_s;
 using Models.Evenimente;
 using Newtonsoft.Json;
+using Models.Comenzi;
 
 namespace Models.DataAccessLayer
 {
@@ -15,7 +16,7 @@ namespace Models.DataAccessLayer
     {
         private readonly string connString = "Server=tcp:irrigationserver.database.windows.net,1433;Initial Catalog=Irrigation;Persist Security Info=False;User ID=aprodaniuc;Password=P@ssw0rd123!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
-        public Guid LogareUtilizator(UtilizatorDto utilizatorDto)
+        public UserLogged LogareUtilizator(UtilizatorDto utilizatorDto)
         {
             using (SqlConnection conn = new SqlConnection(connString))
             {
@@ -34,12 +35,64 @@ namespace Models.DataAccessLayer
 
                     if (result.Read())
                     {
-                        return Guid.Parse(result["Id"].ToString());
+                        return new UserLogged() { Id = Guid.Parse(result["Id"].ToString()), IsSetUp = bool.Parse(result["IsSetup"].ToString()) };
                     }
                     else
                     {
-                        return Guid.Empty;
+                        return new UserLogged();
                     }
+                }
+            }
+        }
+
+        public void ActualizeazaOrar(OrarDto orar)
+        {
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Schedule.UpdateSchedule", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    var id = new SqlParameter("Id", orar.Id);
+                    cmd.Parameters.Add(id);
+
+                    var data = new SqlParameter("Data", JsonConvert.SerializeObject(orar.Materii));
+                    cmd.Parameters.Add(data);
+
+                    conn.Open();
+                    var result = cmd.ExecuteNonQuery();
+
+                    conn.Close();
+                }
+            }
+        }
+
+        public OrarDto GasesteOrar(Guid id)
+        {
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Schedule.FindScheduleById", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    var Id = new SqlParameter("Id", id.ToString());
+                    cmd.Parameters.Add(Id);
+
+                    conn.Open();
+                    var result = cmd.ExecuteReader();
+                    OrarDto orar = new OrarDto();
+                    while (result.Read())
+                    {
+                        var Data = JsonConvert.DeserializeObject<List<MaterieDto>>(result["Data"].ToString());
+                        orar.Id = Guid.Parse(result["Id"].ToString());
+                        var Sectia = result["Sectia"].ToString();
+                        orar.Sectie = Sectia;
+                        orar.Materii = Data;
+                    }
+
+                    conn.Close();
+                    return orar;
+
                 }
             }
         }
@@ -60,7 +113,7 @@ namespace Models.DataAccessLayer
                         var e = JsonConvert.DeserializeObject<Eveniment>(result["Data"].ToString());
                         evenimente.Add(e);
                     }
-                   
+
                     conn.Close();
                     return evenimente;
 
@@ -87,6 +140,63 @@ namespace Models.DataAccessLayer
             }
         }
 
+        public OrarDto AdaugareOrar(OrarDto orarDto)
+        {
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Schedule.AddSchedule", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    var id = new SqlParameter("Id", orarDto.Id);
+                    cmd.Parameters.Add(id);
+
+                    var sectie = new SqlParameter("Sectia", orarDto.Sectie);
+                    cmd.Parameters.Add(sectie);
+
+                    var data = new SqlParameter("Data", JsonConvert.SerializeObject(orarDto.Materii));
+                    cmd.Parameters.Add(data);
+
+                    conn.Open();
+                    var result = cmd.ExecuteNonQuery();
+
+                    conn.Close();
+                    return orarDto;
+                }
+            }
+        }
+
+        public OrarDto OrarNotExists(OrarDto orarDto)
+        {
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Schedule.FindSchedule", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    var sectia = new SqlParameter("Sectia", orarDto.Sectie);
+                    cmd.Parameters.Add(sectia);
+
+                    conn.Open();
+                    var result = cmd.ExecuteReader();
+                    OrarDto orar = new OrarDto();
+                    while (result.Read())
+                    {
+                        var Data = JsonConvert.DeserializeObject<List<MaterieDto>>(result["Data"].ToString());
+                        var Id = result["Id"].ToString();
+                        var Sectia = result["Sectia"].ToString();
+                        orar.Id = Guid.Parse(Id);
+                        orar.Sectie = Sectia;
+                        orar.Materii = Data;
+                    }
+
+                    conn.Close();
+                    return orar;
+
+                }
+            }
+        }
+
         internal void SalvareStudent(StudentDto studentDto)
         {
             using (SqlConnection conn = new SqlConnection(connString))
@@ -97,7 +207,7 @@ namespace Models.DataAccessLayer
 
                     var id = new SqlParameter("Id", studentDto.Id);
                     cmd.Parameters.Add(id);
-                    
+
                     var data = new SqlParameter("Data", JsonConvert.SerializeObject(studentDto));
                     cmd.Parameters.Add(data);
 

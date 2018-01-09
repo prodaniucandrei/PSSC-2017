@@ -55,8 +55,6 @@ namespace Tamarin.ViewModels
         {
             App.Current.Properties["id"] = null;
             App.Current.Properties["email"] = null;
-            App.Current.Properties["roles"] = null;
-            App.Current.Properties["token"] = null;
             App.Current.Properties["isLoggedIn"] = "false";
 
             await _navigationService.NavigateAsync("Login");

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.DTO_s;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Models.Comenzi
 {
     public class ComandaAdaugareMaterie : Comanda
     {
-        public Guid IdMaterie { get; set; }
-        public MaterieDto Materie { get; set; }
+        public Guid IdOrar { get; set; }
+        public MaterieDto MaterieDto{ get; set; }
     }
 }

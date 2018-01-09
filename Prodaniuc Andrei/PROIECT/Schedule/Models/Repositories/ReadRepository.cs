@@ -10,7 +10,7 @@ namespace Models.Repositories
 {
     public class ReadRepository
     {
-        public Guid LogareUtilizator(UtilizatorDto utilizatorDto)
+        public UserLogged LogareUtilizator(UtilizatorDto utilizatorDto)
         {
             var dal = new Dal();
             return dal.LogareUtilizator(utilizatorDto);

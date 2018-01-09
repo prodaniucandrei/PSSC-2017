@@ -53,7 +53,7 @@
     <Compile Include="Comenzi\ComandaStartActivitate.cs" />
     <Compile Include="Comenzi\MagistralaComenzi.cs" />
     <Compile Include="Comenzi\MagistralaComenziEx.cs" />
-    <Compile Include="Comenzi\MaterieDto.cs" />
+    <Compile Include="DTO%27s\MaterieDto.cs" />
     <Compile Include="Comenzi\ProcesatorAdaugareMaterie.cs" />
     <Compile Include="Comenzi\ProcesatorAdaugareStudent.cs" />
     <Compile Include="Comenzi\ProcesatorAdaugareUtilizator.cs" />
@@ -63,6 +63,8 @@
     <Compile Include="Comenzi\ProcesatorSetareStudent.cs" />
     <Compile Include="DataAccessLayer\Dal.cs" />
     <Compile Include="Desfasurare.cs" />
+    <Compile Include="DTO%27s\OrarDto.cs" />
+    <Compile Include="DTO%27s\SetareUtilizatorDto.cs" />
     <Compile Include="DTO%27s\StudentDto.cs" />
     <Compile Include="DTO%27s\UtilizatorDto.cs" />
     <Compile Include="DurataActivitate.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="StatusActivitate.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="TipActivitate.cs" />
+    <Compile Include="UserLogged.cs" />
     <Compile Include="Utilizator.cs" />
   </ItemGroup>
   <ItemGroup>

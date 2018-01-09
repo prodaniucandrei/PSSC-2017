@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Models.Comenzi;
 
 namespace Models.Repositories
 {
@@ -16,12 +17,30 @@ namespace Models.Repositories
         {
             var evenimenteMaterie = IncarcaListaDeEvenimente().Where(e => e.IdRadacina == idMaterie);
 
-            return new Models.Materie();
+            return new Models.Materie(evenimenteMaterie);
         }
 
-        public void SalvareEvenimente(OrarDto orarDto)
+        public OrarDto GasesteOrarInLista(Guid idRadacina)
         {
-            
+            var dal = new Dal();
+            return dal.GasesteOrar(idRadacina);
+        }
+
+        public void ActualizareOrar(OrarDto orar)
+        {
+            var dal = new Dal();
+            dal.ActualizeazaOrar(orar);
+        }
+
+        public Orar GasesteOrar(Guid Id)
+        {
+            var listaEvenimente = IncarcaListaDeEvenimente();
+            return new Orar(listaEvenimente);
+        }
+
+        public void SalvareEvenimente(Orar orar)
+        {
+            SalvareEvenimente(orar.EvenimenteNoi);
         }
 
         public Student GasesteStudent(Guid idStudent)
@@ -87,7 +106,7 @@ namespace Models.Repositories
         public OrarDto CreareOrar(OrarDto orarDto)
         {
             OrarDto orar;
-            if ((orar=OrarNotExists(orarDto))!=null)
+            if ((orar=OrarNotExists(orarDto)).Id==Guid.Empty)
             {
                 orar = AdaugaOrar(orarDto);
             }
@@ -100,12 +119,14 @@ namespace Models.Repositories
 
         private OrarDto AdaugaOrar(OrarDto orarDto)
         {
-            throw new NotImplementedException();
+            var dal = new Dal();
+            return dal.AdaugareOrar(orarDto);
         }
 
         private OrarDto OrarNotExists(OrarDto orarDto)
         {
-            throw new NotImplementedException();
+            var dal = new Dal();
+            return dal.OrarNotExists(orarDto);
         }
     }
 }
