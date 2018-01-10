@@ -32,32 +32,32 @@ namespace Tamarin.ViewModels
         }
         async Task ExecuteLoadItemsCommand()
         {
-            if (IsBusy)
-                return;
+            //if (IsBusy)
+            //    return;
 
-            IsBusy = true;
+            //IsBusy = true;
 
-            try
-            {
-                Studenti.Clear();
-                var response = await StudentService.GetAllBySubject(Subject.Id);
-                var content = await response.Content.ReadAsStringAsync();
-                var message = JsonConvert.DeserializeObject<List<StudentModel>>(content);
-                Studenti.ReplaceRange(message);
-            }
-            catch (Exception ex)
-            {
-                MessagingCenter.Send(new ErrorMessageModel
-                {
-                    Title = "Error",
-                    Message = "Unable to load items.",
-                    Cancel = "OK"
-                }, "message");
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            //try
+            //{
+            //    Studenti.Clear();
+            //    var response = await StudentService.GetAllBySubject(Subject.Id);
+            //    var content = await response.Content.ReadAsStringAsync();
+            //    var message = JsonConvert.DeserializeObject<List<StudentModel>>(content);
+            //    Studenti.ReplaceRange(message);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessagingCenter.Send(new ErrorMessageModel
+            //    {
+            //        Title = "Error",
+            //        Message = "Unable to load items.",
+            //        Cancel = "OK"
+            //    }, "message");
+            //}
+            //finally
+            //{
+            //    IsBusy = false;
+            //}
         }
         public async void OnPrezentSelected()
         {

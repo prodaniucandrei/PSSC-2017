@@ -11,7 +11,7 @@ namespace Tamarin.ViewModels
 {
     public class BaseViewModel : BindableBase, INavigationAware
     {
-        protected static SubjectModel Subject;
+        protected static Materie Subject;
         protected INavigationService _navigationService { get; }
 
         public BaseViewModel(INavigationService navigationService)

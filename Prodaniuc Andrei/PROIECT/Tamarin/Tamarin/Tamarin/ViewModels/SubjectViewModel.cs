@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tamarin.Helpers;
 using Tamarin.Models;
+using Tamarin.Models.Enum;
 using Tamarin.Services;
 using Xamarin.Forms;
 
@@ -30,8 +31,8 @@ namespace Tamarin.ViewModels
             set { SetProperty(ref _locatie, value); }
         }
 
-        private int _confirmations;
-        public int Confirmations
+        private bool _confirmations;
+        public bool Aprobata
         {
             get { return _confirmations; }
             set { SetProperty(ref _confirmations, value); }
@@ -65,8 +66,8 @@ namespace Tamarin.ViewModels
             set { SetProperty(ref _startTime, value); }
         }
 
-        private string _tip;
-        public string Tip
+        private TipActivitate _tip;
+        public TipActivitate Tip
         {
             get { return _tip; }
             set { SetProperty(ref _tip, value); }
@@ -122,31 +123,31 @@ namespace Tamarin.ViewModels
             if (IsBusy)
                 return;
 
-            IsBusy = true;
-            try
-            {
-                var notResponse = await NotiteService.GetNotite(Subject.Id);
-                if (notResponse.IsSuccessStatusCode)
-                {
-                    Notite.Clear();
-                    var content = await notResponse.Content.ReadAsStringAsync();
-                    var message = JsonConvert.DeserializeObject<List<NoteModel>>(content);
-                    Notite.ReplaceRange(message);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessagingCenter.Send(new ErrorMessageModel
-                {
-                    Title = "Error",
-                    Message = "Unable to load items.",
-                    Cancel = "OK"
-                }, "message");
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            //IsBusy = true;
+            //try
+            //{
+            //    var notResponse = await NotiteService.GetNotite(Subject.Id);
+            //    if (notResponse.IsSuccessStatusCode)
+            //    {
+            //        Notite.Clear();
+            //        var content = await notResponse.Content.ReadAsStringAsync();
+            //        var message = JsonConvert.DeserializeObject<List<NoteModel>>(content);
+            //        Notite.ReplaceRange(message);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessagingCenter.Send(new ErrorMessageModel
+            //    {
+            //        Title = "Error",
+            //        Message = "Unable to load items.",
+            //        Cancel = "OK"
+            //    }, "message");
+            //}
+            //finally
+            //{
+            //    IsBusy = false;
+            //}
         }
         public async void OnItemAdded()
         {
@@ -160,27 +161,27 @@ namespace Tamarin.ViewModels
         public async override void OnNavigatedTo(NavigationParameters parameters)
         {
 
-            SubjectModel subject = parameters["subject"] as SubjectModel;
-            Subject = subject;
-            PopulateDetailsProps(subject);
-            GetNote();
-            try
-            {
-                StudentiPrezenti.Clear();
-                var response = await StudentService.GetAllBySubject(Subject.Id);
-                var content = await response.Content.ReadAsStringAsync();
-                var message = JsonConvert.DeserializeObject<List<StudentModel>>(content);
-                StudentiPrezenti.ReplaceRange(message);
-            }
-            catch (Exception ex)
-            {
-                MessagingCenter.Send(new ErrorMessageModel
-                {
-                    Title = "Error",
-                    Message = "Unable to load items.",
-                    Cancel = "OK"
-                }, "message");
-            }
+            //Materie subject = parameters["materie"] as Materie;
+            //Subject = subject;
+            //PopulateDetailsProps(subject);
+            //GetNote();
+            //try
+            //{
+            //    StudentiPrezenti.Clear();
+            //    var response = await StudentService.GetAllBySubject(Subject.Id);
+            //    var content = await response.Content.ReadAsStringAsync();
+            //    var message = JsonConvert.DeserializeObject<List<StudentModel>>(content);
+            //    StudentiPrezenti.ReplaceRange(message);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessagingCenter.Send(new ErrorMessageModel
+            //    {
+            //        Title = "Error",
+            //        Message = "Unable to load items.",
+            //        Cancel = "OK"
+            //    }, "message");
+            //}
 
         }
 
@@ -190,16 +191,11 @@ namespace Tamarin.ViewModels
         }
 
 
-        private void PopulateDetailsProps(SubjectModel subj)
+        private void PopulateDetailsProps(Materie subj)
         {
             this.Nume = subj.Nume;
-            this.Locatie = subj.Locatie;
-            this.Confirmations = subj.Confirmations;
-            this.Facultate = subj.Facultate;
-            this.Serie = subj.Serie;
-            this.Date = GetDay(subj.Date);
-            this.StartTime = subj.StartTime;
-            this.Tip = subj.Tip.ToString();
+            this.Tip = subj.Tip;
+            this.Aprobata = subj.Aprobata;
         }
 
         private string GetDay(int date)

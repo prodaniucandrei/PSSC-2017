@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Tamarin.Models;
+using Tamarin.Models.Enum;
 
 namespace Tamarin.ViewModels
 {
@@ -25,8 +26,8 @@ namespace Tamarin.ViewModels
             set { SetProperty(ref _locatie, value); }
         }
 
-        private int _confirmations;
-        public int Confirmations
+        private bool _confirmations;
+        public bool Aprobata
         {
             get { return _confirmations; }
             set { SetProperty(ref _confirmations, value); }
@@ -60,8 +61,8 @@ namespace Tamarin.ViewModels
             set { SetProperty(ref _startTime, value); }
         }
 
-        private string _tip;
-        public string Tip
+        private TipActivitate _tip;
+        public TipActivitate Tip
         {
             get { return _tip; }
             set { SetProperty(ref _tip, value); }
@@ -87,16 +88,11 @@ namespace Tamarin.ViewModels
 
         }
 
-        private void PopulateDetailsProps(SubjectModel subj)
+        private void PopulateDetailsProps(Materie subj)
         {
             this.Nume = subj.Nume;
-            this.Locatie = subj.Locatie;
-            this.Confirmations = subj.Confirmations;
-            this.Facultate = subj.Facultate;
-            this.Serie = subj.Serie;
-            this.Date = GetDay(subj.Date);
-            this.StartTime = subj.StartTime;
-            this.Tip = subj.Tip.ToString();
+            this.Tip = subj.Tip;
+            this.Aprobata = subj.Aprobata;
         }
 
         private string GetDay(int date)

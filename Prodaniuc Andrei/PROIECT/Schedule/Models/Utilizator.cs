@@ -29,6 +29,30 @@ namespace Models
             PublicaEveniment(ev);
         }
 
+        public Utilizator(List<Eveniment> evenimenteUtilizator)
+        {
+            foreach (var e in evenimenteUtilizator)
+            {
+                RedaEvenimente(e);
+            }
+        }
+
+        private void RedaEvenimente(Eveniment e)
+        {
+            switch (e.Tip)
+            {
+                case TipEveniment.AdaugareUtilizator:
+                    Aplica(e.ToGeneric<UtilizatorDto>());
+                    break;
+
+            }
+        }
+
+        public void DeleteSavedEvents()
+        {
+            _evenimenteNoi.Clear();
+        }
+
 
 
         private void PublicaEveniment(Eveniment e)

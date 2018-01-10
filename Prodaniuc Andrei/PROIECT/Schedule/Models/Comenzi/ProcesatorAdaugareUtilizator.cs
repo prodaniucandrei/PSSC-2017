@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Models.Comenzi
 {
-    public class ProcesatorAdaugareUtilizator : ProcesatorComandaGeneric<ComandaAdaugareUtilizator>
-    {
-        public override void Proceseaza(ComandaAdaugareUtilizator comanda)
-        {
-            var repo = new WriteRepository();
-            var utilizator = comanda.Utilizator;
-            repo.SalvareEvenimente(utilizator);
-        }
-    }
+    //public class ProcesatorAdaugareUtilizator : ProcesatorComandaGeneric<ComandaAdaugareUtilizator>
+    //{
+    //    public override void Proceseaza(ComandaAdaugareUtilizator comanda)
+    //    {
+    //        var repo = new WriteRepository();
+    //        var utilizator = comanda.Utilizator;
+    //        repo.SalvareEvenimente(utilizator);
+    //    }
+    //}
 }

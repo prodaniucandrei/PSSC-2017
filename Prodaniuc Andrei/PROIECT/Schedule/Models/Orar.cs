@@ -35,6 +35,11 @@ namespace Models
             MagistralaEvenimente.Instanta.Value.Trimite(ev);
         }
 
+        public void DeleteAddedEvents()
+        {
+            _evenimenteNoi.Clear();
+        }
+
         public Orar()
         {
 

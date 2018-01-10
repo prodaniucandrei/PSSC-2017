@@ -8,9 +8,9 @@ namespace Tamarin.Models
 {
     public class Desfasurare
     {
-        public string Zi { get; set; }
-        public string Semestru { get; set; }
-        public string OraStart { get; set; }
-        public string Durata { get; set; }
+        public PlainText Zi { get; set; }
+        public PlainText Semestru { get; set; }
+        public OraStart OraStart { get; set; }
+        public Durata Durata { get; set; }
     }
 }

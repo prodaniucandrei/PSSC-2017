@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Models.Comenzi
 {
-    public class ComandaAdaugareUtilizator : Comanda
-    {
-        public Guid IdUtilizator { get; set; }
-        public Utilizator Utilizator { get; set; }
-    }
+    //public class ComandaAdaugareUtilizator : Comanda
+    //{
+    //    public Guid IdUtilizator { get; set; }
+    //    public Utilizator Utilizator { get; set; }
+    //}
 }

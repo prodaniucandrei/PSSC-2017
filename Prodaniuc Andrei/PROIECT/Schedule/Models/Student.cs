@@ -42,6 +42,10 @@ namespace Models
             PublicaEveniment(ev);
         }
 
+        public void DeleteSavedEvents()
+        {
+            _evenimenteNoi.Clear();
+        }
         public Student(IEnumerable<Eveniment> evenimenteStudent)
         {
             foreach (var e in evenimenteStudent)

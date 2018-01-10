@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Comenzi\Comanda.cs" />
     <Compile Include="Comenzi\ComandaAdaugareMaterie.cs" />
+    <Compile Include="Comenzi\ComandaAdaugareOrar.cs" />
     <Compile Include="Comenzi\ComandaAdaugareStudent.cs" />
     <Compile Include="Comenzi\ComandaAdaugareUtilizator.cs" />
     <Compile Include="Comenzi\ComandaAprobareMaterie.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Comenzi\ComandaStartActivitate.cs" />
     <Compile Include="Comenzi\MagistralaComenzi.cs" />
     <Compile Include="Comenzi\MagistralaComenziEx.cs" />
+    <Compile Include="DTO%27s\DesfasurareDto.cs" />
     <Compile Include="DTO%27s\MaterieDto.cs" />
     <Compile Include="Comenzi\ProcesatorAdaugareMaterie.cs" />
     <Compile Include="Comenzi\ProcesatorAdaugareStudent.cs" />

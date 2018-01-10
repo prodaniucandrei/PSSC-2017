@@ -32,22 +32,15 @@ namespace Models.Repositories
             dal.ActualizeazaOrar(orar);
         }
 
-        public Orar GasesteOrar(Guid Id)
-        {
-            var listaEvenimente = IncarcaListaDeEvenimente();
-            return new Orar(listaEvenimente);
-        }
+      
 
         public void SalvareEvenimente(Orar orar)
         {
             SalvareEvenimente(orar.EvenimenteNoi);
+            orar.DeleteAddedEvents();
         }
 
-        public Student GasesteStudent(Guid idStudent)
-        {
-            var evenimenteStudent = IncarcaListaDeEvenimente().Where(e => e.IdRadacina == idStudent);
-            return new Student(evenimenteStudent);
-        }
+        
 
         private List<Eveniment> IncarcaListaDeEvenimente()
         {
@@ -63,11 +56,13 @@ namespace Models.Repositories
         public void SalvareEvenimente(Student student)
         {
             SalvareEvenimente(student.EvenimenteNoi);
+            student.DeleteSavedEvents();
         }
 
-        internal void SalvareEvenimente(Utilizator utilizator)
+        public void SalvareEvenimente(Utilizator utilizator)
         {
             SalvareEvenimente(utilizator.EvenimenteNoi);
+            utilizator.DeleteSavedEvents();
         }
 
         public void AdaugareUtilizator(UtilizatorDto utilizatorDto)
@@ -105,16 +100,19 @@ namespace Models.Repositories
 
         public OrarDto CreareOrar(OrarDto orarDto)
         {
-            OrarDto orar;
-            if ((orar=OrarNotExists(orarDto)).Id==Guid.Empty)
+            var orar = new Orar(orarDto);
+            OrarDto orarDtoExists;
+            if ((orarDtoExists = OrarNotExists(orarDto)).Id==Guid.Empty)
             {
-                orar = AdaugaOrar(orarDto);
+                orarDtoExists = AdaugaOrar(orarDto);
+                SalvareEvenimente(orar);
             }
             else
             {
-                return orar;
+                orar.DeleteAddedEvents();
+                return orarDto;
             }
-            return orar;
+            return orarDtoExists;
         }
 
         private OrarDto AdaugaOrar(OrarDto orarDto)

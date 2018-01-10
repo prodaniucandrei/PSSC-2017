@@ -129,6 +129,9 @@ namespace Models.DataAccessLayer
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
+                    var date = new SqlParameter("Date", DateTime.Now);
+                    cmd.Parameters.Add(date);
+
                     var data = new SqlParameter("Data", JsonConvert.SerializeObject(evenimenteNoi.LastOrDefault()));
                     cmd.Parameters.Add(data);
 

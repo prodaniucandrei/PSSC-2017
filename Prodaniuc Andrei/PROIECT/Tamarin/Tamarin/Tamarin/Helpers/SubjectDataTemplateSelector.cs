@@ -16,7 +16,7 @@ namespace Tamarin.Helpers
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            return ((SubjectModel)item).Tip == SubjectTypeEnum.Curs ? CourseTemplate : LabTemplate;
+            return ((Materie)item).Tip == TipActivitate.Curs ? CourseTemplate : LabTemplate;
         }
     }
 }
