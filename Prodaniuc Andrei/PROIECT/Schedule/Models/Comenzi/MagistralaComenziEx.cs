@@ -13,7 +13,7 @@ namespace Models.Comenzi
             magistrala.InregistreazaProcesator(new ProcesatorAdaugareMaterie());
             magistrala.InregistreazaProcesator(new ProcesatorAprobareMaterie());
             magistrala.InregistreazaProcesator(new ProcesatorSetareStudent());
-
+            magistrala.InregistreazaProcesator(new ProcesatorSetareUtilizator());
         }
     }
 }

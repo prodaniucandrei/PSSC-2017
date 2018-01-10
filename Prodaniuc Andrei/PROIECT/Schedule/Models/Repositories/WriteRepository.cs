@@ -26,13 +26,19 @@ namespace Models.Repositories
             return dal.GasesteOrar(idRadacina);
         }
 
+        public void ActualizareUtilizator(Utilizator utilizator)
+        {
+            var dal = new Dal();
+            dal.ActualizeazaUtilizator(utilizator);
+        }
+
         public void ActualizareOrar(OrarDto orar)
         {
             var dal = new Dal();
             dal.ActualizeazaOrar(orar);
         }
 
-      
+
 
         public void SalvareEvenimente(Orar orar)
         {
@@ -40,7 +46,7 @@ namespace Models.Repositories
             orar.DeleteAddedEvents();
         }
 
-        
+
 
         private List<Eveniment> IncarcaListaDeEvenimente()
         {
@@ -67,10 +73,14 @@ namespace Models.Repositories
 
         public void AdaugareUtilizator(UtilizatorDto utilizatorDto)
         {
-            var utilizator = new Utilizator(utilizatorDto);
-            utilizatorDto.Password = utilizator.Password.Value.Text;
-            SalvareEvenimente(utilizator);
-            SalvareUtilizator(utilizatorDto);
+            var readRepo = new ReadRepository();
+            if (readRepo.GasesteUtilizator(utilizatorDto.Email).Id == Guid.Empty)
+            {
+                var utilizator = new Utilizator(utilizatorDto);
+                utilizatorDto.Password = utilizator.Password.Value.Text;
+                SalvareEvenimente(utilizator);
+                SalvareUtilizator(utilizatorDto);
+            }
         }
 
         private void SalvareUtilizator(UtilizatorDto utilizatorDto)
@@ -87,9 +97,13 @@ namespace Models.Repositories
 
         public void AdaugareStudent(StudentDto studentDto)
         {
-            var student = new Student(studentDto);
-            SalvareEvenimente(student);
-            SalvareStudent(studentDto);
+            var readRepo = new ReadRepository();
+            if (readRepo.GasesteStudent(studentDto.Email).Id==Guid.Empty)
+            {
+                var student = new Student(studentDto);
+                SalvareEvenimente(student);
+                SalvareStudent(studentDto);
+            }
         }
 
         private void SalvareStudent(StudentDto studentDto)
@@ -102,7 +116,7 @@ namespace Models.Repositories
         {
             var orar = new Orar(orarDto);
             OrarDto orarDtoExists;
-            if ((orarDtoExists = OrarNotExists(orarDto)).Id==Guid.Empty)
+            if ((orarDtoExists = OrarNotExists(orarDto)).Id == Guid.Empty)
             {
                 orarDtoExists = AdaugaOrar(orarDto);
                 SalvareEvenimente(orar);

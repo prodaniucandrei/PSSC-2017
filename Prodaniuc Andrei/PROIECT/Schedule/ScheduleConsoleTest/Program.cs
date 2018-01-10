@@ -120,6 +120,14 @@ namespace ScheduleConsoleTest
                 Console.WriteLine(e.Nume);
             }
             Console.WriteLine(or.Sectie);
+
+            var user = readRepository.GasesteUtilizator(utilizatorDto2.Id);
+            utilizatorDto2.IsSetUp = true;
+            user.SetareUtilizator(utilizatorDto2);
+            var comandaSetareUtilizator = new ComandaSetareUtilizator() { IdUtilizator = utilizatorDto2.Id, UtilizatorDto = utilizatorDto2 };
+            MagistralaComenzi.Instanta.Value.Trimite(comandaSetareUtilizator);
+          
+            
             //--------
 
             //var utilizatorDto = new UtilizatorDto()

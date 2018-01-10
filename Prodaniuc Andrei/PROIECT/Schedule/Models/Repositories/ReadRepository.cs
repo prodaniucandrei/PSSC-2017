@@ -24,10 +24,28 @@ namespace Models.Repositories
             return dal.OrarNotExists(orarDto);
         }
 
+        public Utilizator GasesteUtilizator(Guid idUtilizator)
+        {
+            var evenimenteUtilizator = IncarcaListaDeEvenimente().Where(e => e.IdRadacina == idUtilizator);
+            return new Utilizator(evenimenteUtilizator);
+        }
+
+        public UtilizatorDto GasesteUtilizator(string email)
+        {
+            var dal = new Dal();
+            return dal.GasesteUtilizator(email);
+        }
+
         public Student GasesteStudent(Guid idStudent)
         {
             var evenimenteStudent = IncarcaListaDeEvenimente().Where(e => e.IdRadacina == idStudent);
             return new Student(evenimenteStudent);
+        }
+
+        public StudentDto GasesteStudent(string email)
+        {
+            var dal = new Dal();
+            return dal.GasesteStudent(email);
         }
 
         public Orar GasesteOrar(Guid Id)

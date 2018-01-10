@@ -45,6 +45,79 @@ namespace Models.DataAccessLayer
             }
         }
 
+        public StudentDto GasesteStudent(string email)
+        {
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Schedule.GetStudentByEmail", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    var Email = new SqlParameter("Email", email);
+                    cmd.Parameters.Add(Email);
+
+                    conn.Open();
+                    var result = cmd.ExecuteReader();
+                    StudentDto studentDto = new StudentDto();
+                    while (result.Read())
+                    {
+                        var std = studentDto = JsonConvert.DeserializeObject<StudentDto>(result["Data"].ToString());
+                        if (std.Email == email)
+                            break;
+                    }
+
+                    conn.Close();
+                    return studentDto;
+
+                }
+            }
+        }
+
+        public UtilizatorDto GasesteUtilizator(string email)
+        {
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Schedule.GetUserByEmail", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    var Email = new SqlParameter("Email", email);
+                    cmd.Parameters.Add(Email);
+
+                    conn.Open();
+                    var result = cmd.ExecuteReader();
+                    UtilizatorDto utilizatorDto = new UtilizatorDto();
+                    while (result.Read())
+                    {
+                        utilizatorDto.Id = Guid.Parse(result["Id"].ToString());
+                    }
+
+                    conn.Close();
+                    return utilizatorDto;
+
+                }
+            }
+        }
+
+        public void ActualizeazaUtilizator(Utilizator utilizator)
+        {
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Schedule.UpdateUser", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    var id = new SqlParameter("Id", utilizator.Id);
+                    cmd.Parameters.Add(id);
+
+                    conn.Open();
+                    var result = cmd.ExecuteNonQuery();
+
+                    conn.Close();
+                }
+            }
+        }
+
         public void ActualizeazaOrar(OrarDto orar)
         {
             using (SqlConnection conn = new SqlConnection(connString))
@@ -200,7 +273,7 @@ namespace Models.DataAccessLayer
             }
         }
 
-        internal void SalvareStudent(StudentDto studentDto)
+        public void SalvareStudent(StudentDto studentDto)
         {
             using (SqlConnection conn = new SqlConnection(connString))
             {

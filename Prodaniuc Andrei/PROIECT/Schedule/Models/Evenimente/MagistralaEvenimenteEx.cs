@@ -13,6 +13,7 @@ namespace Models.Evenimente
             magistrala.InregistreazaProcesator(TipEveniment.AdaugareMaterie, new ProcesatorAdaugareMaterie());
             magistrala.InregistreazaProcesator(TipEveniment.AprobareMaterie, new ProcesatorAprobareMaterie());
             magistrala.InregistreazaProcesator(TipEveniment.AdaugareUtilizator, new ProcesatorAdaugareUtilizator());
+            magistrala.InregistreazaProcesator(TipEveniment.SetareUtilizator, new ProcesatorSetareUtilizator());
         }
     }
 }

@@ -29,6 +29,14 @@ namespace Models
             PublicaEveniment(ev);
         }
 
+        public Utilizator(IEnumerable<Eveniment> evenimenteUtilizator)
+        {
+            foreach (var e in evenimenteUtilizator)
+            {
+                RedaEvenimente(e);
+            }
+        }
+
         public Utilizator(List<Eveniment> evenimenteUtilizator)
         {
             foreach (var e in evenimenteUtilizator)
@@ -44,7 +52,10 @@ namespace Models
                 case TipEveniment.AdaugareUtilizator:
                     Aplica(e.ToGeneric<UtilizatorDto>());
                     break;
-
+                case TipEveniment.SetareUtilizator:
+                    Aplica(e.ToGeneric<UtilizatorDto>());
+                    break;
+                    default: break;
             }
         }
 
@@ -59,7 +70,7 @@ namespace Models
         {
             _evenimenteNoi.Add(e);
 
-            //MagistralaEvenimente.Instanta.Value.Trimite(e);
+            MagistralaEvenimente.Instanta.Value.Trimite(e);
         }
 
         private void Aplica(EvenimentGeneric<UtilizatorDto> ev)
@@ -72,9 +83,9 @@ namespace Models
             IsSetUp = ev.Detalii.IsSetUp;
         }
 
-        public void SetareUtilizator(SetareUtilizatorDto setDto)
+        public void SetareUtilizator(UtilizatorDto setDto)
         {
-            var ev = new EvenimentGeneric<SetareUtilizatorDto>(setDto.IdUtilizator, TipEveniment.SetareUtilizator, setDto);
+            var ev = new EvenimentGeneric<UtilizatorDto>(setDto.Id, TipEveniment.SetareUtilizator, setDto);
             Aplica(ev);
             PublicaEveniment(ev);
         }
