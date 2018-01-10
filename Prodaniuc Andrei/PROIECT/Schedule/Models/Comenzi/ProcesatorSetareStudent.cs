@@ -12,7 +12,8 @@ namespace Models.Comenzi
         public override void Proceseaza(ComandaSetareStudent comanda)
         {
             var repo = new WriteRepository();
-            var student = repo.GasesteStudent(comanda.IdStudent);
+            var readRepo = new ReadRepository();
+            var student = readRepo.GasesteStudent(comanda.IdStudent);
             student.Setare();
             repo.SalvareEvenimente(student);
         }

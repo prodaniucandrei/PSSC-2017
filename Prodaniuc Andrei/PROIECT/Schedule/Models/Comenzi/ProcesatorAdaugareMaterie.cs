@@ -12,7 +12,8 @@ namespace Models.Comenzi
         public override void Proceseaza(ComandaAdaugareMaterie comanda)
         {
             var repo = new WriteRepository();
-            var orar = repo.GasesteOrar(comanda.IdOrar);
+            var readRepo = new ReadRepository();
+            var orar = readRepo.GasesteOrar(comanda.IdOrar);
             orar.AdaugareMaterie(comanda.MaterieDto);
             repo.SalvareEvenimente(orar);
         }
